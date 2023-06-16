@@ -168,6 +168,7 @@ class SamPredictor:
     @torch.no_grad()
     def predict_torch(
         self,
+        embeded_text_prompt: Optional[torch.Tensor],
         point_coords: Optional[torch.Tensor],
         point_labels: Optional[torch.Tensor],
         boxes: Optional[torch.Tensor] = None,
@@ -214,6 +215,7 @@ class SamPredictor:
             raise RuntimeError("An image must be set with .set_image(...) before mask prediction.")
 
         if point_coords is not None:
+            print(point_coords.shape)
             points = (point_coords, point_labels)
         else:
             points = None
@@ -229,7 +231,7 @@ class SamPredictor:
         low_res_masks, iou_predictions = self.model.mask_decoder(
             image_embeddings=self.features,
             image_pe=self.model.prompt_encoder.get_dense_pe(),
-            sparse_prompt_embeddings=sparse_embeddings,
+            sparse_prompt_embeddings=embeded_text_prompt,
             dense_prompt_embeddings=dense_embeddings,
             multimask_output=multimask_output,
         )
