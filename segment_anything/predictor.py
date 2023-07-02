@@ -168,7 +168,7 @@ class SamPredictor:
     @torch.no_grad()
     def predict_torch(
         self,
-        embeded_text_prompt: Optional[torch.Tensor],
+        embeded_text_prompt: Optional[torch.Tensor],   #amader code
         point_coords: Optional[torch.Tensor],
         point_labels: Optional[torch.Tensor],
         boxes: Optional[torch.Tensor] = None,
@@ -231,7 +231,7 @@ class SamPredictor:
         low_res_masks, iou_predictions = self.model.mask_decoder(
             image_embeddings=self.features,
             image_pe=self.model.prompt_encoder.get_dense_pe(),
-            sparse_prompt_embeddings=embeded_text_prompt,
+            sparse_prompt_embeddings=embeded_text_prompt,   #amader code
             dense_prompt_embeddings=dense_embeddings,
             multimask_output=multimask_output,
         )
