@@ -124,7 +124,7 @@ class MaskDecoder(nn.Module):
 
         # Amader code because dim of output_token=3 and prompt dim=2    
         sparse_prompt_embeddings = sparse_prompt_embeddings.unsqueeze(0)  # Add a new dimension at the beginning
-        sparse_prompt_embeddings = sparse_prompt_embeddings.expand(output_tokens.size(0), 256, -1)
+        sparse_prompt_embeddings = sparse_prompt_embeddings[:, :256] 
 
         tokens = torch.cat((output_tokens, sparse_prompt_embeddings), dim=1)
 
