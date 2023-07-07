@@ -119,7 +119,10 @@ class MaskDecoder(nn.Module):
     ) -> Tuple[torch.Tensor, torch.Tensor]:
         """Predicts masks. See 'forward' for more details."""
         # Concatenate output tokens
-        print("runn nnnnnnn")
+        print("Iou_token weight")
+        print(self.iou_token.weight)
+        print("mask_token weight")
+        print(self.mask_tokens.weight)
         output_tokens = torch.cat([self.iou_token.weight, self.mask_tokens.weight], dim=0)
         print("Output Tokens 1: ")
         print(output_tokens.shape)
