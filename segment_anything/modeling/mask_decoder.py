@@ -23,7 +23,7 @@ class MaskDecoder(nn.Module):
         num_multimask_outputs: int = 3,
         activation: Type[nn.Module] = nn.GELU,
         iou_head_depth: int = 3,
-        iou_head_hidden_dim: int = 256,
+        iou_head_hidden_dim: int = 512,
     ) -> None:
         """
         Predicts masks given an image and prompt embeddings, using a
@@ -131,7 +131,7 @@ class MaskDecoder(nn.Module):
 
         # Amader code because dim of output_token=3 and prompt dim=2    
         # sparse_prompt_embeddings = sparse_prompt_embeddings[:, :256]  # Keep the first 256 elements along dimension 1
-        # sparse_prompt_embeddings = sparse_prompt_embeddings.unsqueeze(0).expand(output_tokens.size(0), -1, -1)  # Expand to match the size of output_tokens
+        sparse_prompt_embeddings = sparse_prompt_embeddings.unsqueeze(0).expand(output_tokens.size(0), -1, -1)  # Expand to match the size of output_tokens
 
         tokens = torch.cat((output_tokens, sparse_prompt_embeddings), dim=1)
 
